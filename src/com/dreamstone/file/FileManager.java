@@ -13,6 +13,10 @@ public final class FileManager {
 
 	private static final String s = File.separator;
 	
+	/**
+	 * Initializes the file system. Identifies and sets the current operating system, which is used to identify the location
+	 * of where all Sloverse files will be stored. Once this is complete, it proceeds to initialize those directories.
+	 */
 	public static void initalizeStoragePath() {
 		String operatingSystem = System.getProperty("os.name").toLowerCase();
 		if (operatingSystem.contains("win")) {
@@ -42,12 +46,21 @@ public final class FileManager {
 		initDirectories();
 	}
 	
+	/**
+	 * Sets the location of all directories.
+	 */
 	private static void initDirectories() {
 		(FileStructure.sloverseDir = FileStructure.appDir.down("Sloverse")).makeDirectories();
 		(FileStructure.optionsDir = FileStructure.sloverseDir.down("options")).makeDirectory();
 		(FileStructure.logsDir = FileStructure.sloverseDir.down("logs")).makeDirectory();
 	}
 	
+	/**
+	 * Retrieves a File instance of a specific file/folder in a specific Directory
+	 * @param d The specific Directory instance that contains the file being retrieved.
+	 * @param fileName The name of the file being retrieved.
+	 * @return The File instance of the specified file
+	 */
 	public static File retrieveFile(Directory d, String fileName) {
 		try {
 			return d.getFileFromDir(fileName);
