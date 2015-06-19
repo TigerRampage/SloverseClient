@@ -20,6 +20,7 @@ public final class FrameSettingsManager {
 	private static Dimension frameDimension;
 	private static Point framePosition;
 	
+	private static boolean isMaximized;
 	
 	public static void saveFrameSettings() {
 		SloverseFrame frameHandle = SloverseClient.getSloverse().getFrame();
@@ -31,7 +32,8 @@ public final class FrameSettingsManager {
 		sb.append("frameWidth=" + (int)frameDimension.getWidth() + System.lineSeparator());
 		sb.append("frameHeight=" + (int)frameDimension.getHeight() + System.lineSeparator());
 		sb.append("framePosX=" + (int)framePosition.getX() + System.lineSeparator());
-		sb.append("framePosY=" + (int)framePosition.getY());
+		sb.append("framePosY=" + (int)framePosition.getY() + System.lineSeparator());
+		sb.append("maximized=" + isMaximized);
 		String text = sb.toString();
 		
 		if (!FileStructure.getOptionsDirectory().contains("settings.txt")) {
@@ -48,12 +50,20 @@ public final class FrameSettingsManager {
 				setDefaultFrameSettings();
 			}
 			else {
-				int frameWidth = Integer.parseInt(ReadingHelper.getValueFromNode("frameWidth", contents));
-				int frameHeight = Integer.parseInt(ReadingHelper.getValueFromNode("frameHeight", contents));
-				int framePosX = Integer.parseInt(ReadingHelper.getValueFromNode("framePosX", contents));
-				int framePosY = Integer.parseInt(ReadingHelper.getValueFromNode("framePosY", contents));
-				frameDimension = new Dimension(frameWidth, frameHeight);
-				framePosition = new Point(framePosX, framePosY);
+				
+				isMaximized = Boolean.parseBoolean(ReadingHelper.getValueFromNode("maximized", contents));
+				if (isMaximized) {
+					setDefaultFrameSettings();
+				}
+				else {
+					int frameWidth = Integer.parseInt(ReadingHelper.getValueFromNode("frameWidth", contents));
+					int frameHeight = Integer.parseInt(ReadingHelper.getValueFromNode("frameHeight", contents));
+					int framePosX = Integer.parseInt(ReadingHelper.getValueFromNode("framePosX", contents));
+					int framePosY = Integer.parseInt(ReadingHelper.getValueFromNode("framePosY", contents));
+					
+					frameDimension = new Dimension(frameWidth, frameHeight);
+					framePosition = new Point(framePosX, framePosY);
+				}
 			}
 		}
 		else {
@@ -84,5 +94,13 @@ public final class FrameSettingsManager {
 	
 	public static Point getFramePosition() {
 		return framePosition;
+	}
+	
+	public static void setMaximized(boolean b) {
+		isMaximized = b;
+	}
+	
+	public static boolean isMaximized() {
+		return isMaximized;
 	}
 }
