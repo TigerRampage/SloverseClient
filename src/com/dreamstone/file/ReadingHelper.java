@@ -12,9 +12,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
+
+import com.dreamstone.logging.Log;
+import com.dreamstone.logging.Priority;
 
 public class ReadingHelper {
 	
@@ -36,8 +38,8 @@ public class ReadingHelper {
 			}
 			reader.close();
 		} catch (IOException e) {
-			SloverseLogger.logMessage(Level.SEVERE, "File could not be read!");
-			SloverseLogger.logMessage(Level.SEVERE, "Failed file: " + d.getFilePath() + File.separator + fileName);
+			Log.logMessage(Priority.ERROR, "File could not be read!");
+			Log.logMessage(Priority.ERROR, "Failed file: " + d.getFilePath() + File.separator + fileName);
 			e.printStackTrace();
 			return null;
 		}
@@ -49,7 +51,7 @@ public class ReadingHelper {
 		String s = System.lineSeparator();
 		String[] lines = text.split(s);
 		if (line < 1 || line > lines.length) {
-			SloverseLogger.logMessage(Level.SEVERE, "Line out of bounds! Returning null...");
+			Log.logMessage(Priority.ERROR, "Line out of bounds! Returning null...");
 			return null;
 		}
 		return lines[line - 1];
@@ -59,7 +61,7 @@ public class ReadingHelper {
 	public static String readFile(Directory d, String fileName, int startLine, int endLine) {
 		StringBuilder lines = new StringBuilder();
 		if (startLine >= endLine) {
-			SloverseLogger.logMessage(Level.SEVERE, "Start line >= end line while reading!");
+			Log.logMessage(Priority.ERROR, "Start line >= end line while reading!");
 			return null;
 		}
 		for (int i = startLine; i < endLine; i++) {
@@ -82,8 +84,8 @@ public class ReadingHelper {
 			im = ImageIO.read(f);
 			bi = gc.createCompatibleImage(im.getWidth(null), im.getHeight(null), Transparency.TRANSLUCENT);
 		} catch (Exception e) {
-			SloverseLogger.logMessage(Level.SEVERE, "Image file could not be found/read!");
-			SloverseLogger.logMessage(Level.SEVERE, "Failed file: " + d.getFilePath() + File.separator + imageName);
+			Log.logMessage(Priority.ERROR, "Image file could not be found/read!");
+			Log.logMessage(Priority.ERROR, "Failed file: " + d.getFilePath() + File.separator + imageName);
 			e.printStackTrace();
 		}
 		Graphics g = bi.createGraphics();
@@ -98,7 +100,7 @@ public class ReadingHelper {
 		try {
 			image = ImageIO.read(stream);
 		} catch (IOException e) {
-			SloverseLogger.logMessage(Level.SEVERE, "File " + File.separator + filePath + " could not be found by class loader!");
+			Log.logMessage(Priority.ERROR, "File " + File.separator + filePath + " could not be found by class loader!");
 			e.printStackTrace();
 			return null;
 		}

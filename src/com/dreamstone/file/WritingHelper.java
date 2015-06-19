@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.logging.Level;
+
+import com.dreamstone.logging.Log;
+import com.dreamstone.logging.Priority;
 
 public class WritingHelper {
 
@@ -17,8 +19,8 @@ public class WritingHelper {
 			writer.close();
 		}
 		catch (IOException ioe) {
-			SloverseLogger.logMessage(Level.SEVERE, "Writing to file failed!");
-			SloverseLogger.logMessage(Level.SEVERE, "Failed file: " + d.getFilePath() + File.separator + fileName);
+			Log.logMessage(Priority.ERROR, "Writing to file failed!");
+			Log.logMessage(Priority.ERROR, "Failed file: " + d.getFilePath() + File.separator + fileName);
 			ioe.printStackTrace();
 			return false;
 		}
@@ -33,8 +35,8 @@ public class WritingHelper {
 			writer.close();
 		}
 		catch (IOException ioe) {
-			SloverseLogger.logMessage(Level.SEVERE, "Appending to file failed!");
-			SloverseLogger.logMessage(Level.SEVERE, "Failed file: " + d.getFilePath() + File.separator + fileName);
+			Log.logMessage(Priority.ERROR, "Appending to file failed!");
+			Log.logMessage(Priority.ERROR, "Failed file: " + d.getFilePath() + File.separator + fileName);
 			ioe.printStackTrace();
 			return false;
 		}

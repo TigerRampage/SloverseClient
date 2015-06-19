@@ -3,8 +3,9 @@ package com.dreamstone.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
 
+import com.dreamstone.logging.Log;
+import com.dreamstone.logging.Priority;
 import com.dreamstone.user.EnumOS;
 import com.dreamstone.user.UserUtilities;
 
@@ -34,7 +35,7 @@ public final class FileManager {
 				UserUtilities.setCurrentOS(EnumOS.LINUX);
 			}
 			else {
-				SloverseLogger.logMessage(Level.INFO, "Operating system is not supported. Setting to \"other\". Sorry!");
+				Log.logMessage(Priority.INFO, "Operating system is not supported. Setting to \"other\". Sorry!");
 				UserUtilities.setCurrentOS(EnumOS.OTHER);
 			}
 		}
@@ -50,7 +51,7 @@ public final class FileManager {
 		try {
 			return d.getFileFromDir(fileName);
 		} catch (FileNotFoundException e) {
-			SloverseLogger.logMessage(Level.SEVERE, "File: " + fileName + " not found after attempt to retrieve it!");
+			Log.logMessage(Priority.ERROR, "File: " + fileName + " not found after attempt to retrieve it!");
 			e.printStackTrace();
 		}
 		return null;
@@ -69,8 +70,8 @@ public final class FileManager {
 		try {
 			f.createNewFile();
 		} catch (IOException e) {
-			SloverseLogger.logMessage(Level.SEVERE, "File could not be created!");
-			SloverseLogger.logMessage(Level.SEVERE, "Failed to create: " + d.getFilePath() + File.separator + fileName);
+			Log.logMessage(Priority.ERROR, "File could not be created!");
+			Log.logMessage(Priority.ERROR, "Failed to create: " + d.getFilePath() + File.separator + fileName);
 			e.printStackTrace();
 			return false;
 		}

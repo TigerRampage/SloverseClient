@@ -3,7 +3,9 @@ package com.dreamstone.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.logging.Level;
+
+import com.dreamstone.logging.Log;
+import com.dreamstone.logging.Priority;
 
 public class Directory {
 
@@ -12,7 +14,7 @@ public class Directory {
 	public Directory(String path) {
 		filePath = path;
 		if (path == null || path.isEmpty()) {
-			SloverseLogger.logMessage(Level.WARNING, "A new directory was instantiated with a null path! Something's not right!");
+			Log.logMessage(Priority.WARNING, "A new directory was instantiated with a null path! Something's not right!");
 		}
 	}
 	
@@ -58,8 +60,8 @@ public class Directory {
 	public File getFileFromDir(String fileName) throws FileNotFoundException {
 		File f = new File(this.getFilePath() + File.separator + fileName);
 		if (!f.exists()) {
-			SloverseLogger.logMessage(Level.SEVERE, "The file you are trying to write to does not exist!");
-			SloverseLogger.logMessage(Level.SEVERE, "File: " + this.getFilePath() + File.separator + fileName);
+			Log.logMessage(Priority.ERROR, "The file you are trying to write to does not exist!");
+			Log.logMessage(Priority.ERROR, "File: " + this.getFilePath() + File.separator + fileName);
 			throw new FileNotFoundException("File " + this.getFilePath() + File.separator + fileName + " could not be found");
 		}
 		return f;
@@ -88,7 +90,7 @@ public class Directory {
 			mkdirs = this.toFile().mkdirs();
 		}
 		catch (SecurityException se) {
-			SloverseLogger.logMessage(Level.SEVERE, "Denied access to directory: " + this.getFilePath());
+			Log.logMessage(Priority.ERROR, "Denied access to directory: " + this.getFilePath());
 			se.printStackTrace();
 		}
 		return mkdirs;
@@ -100,7 +102,7 @@ public class Directory {
 			mkdir = this.toFile().mkdir();
 		}
 		catch (SecurityException se) {
-			SloverseLogger.logMessage(Level.SEVERE, "Denied access to directory: " + this.getFilePath());
+			Log.logMessage(Priority.ERROR, "Denied access to directory: " + this.getFilePath());
 			se.printStackTrace();
 		}
 		return mkdir;
