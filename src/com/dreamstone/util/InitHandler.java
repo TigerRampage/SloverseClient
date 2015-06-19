@@ -1,10 +1,9 @@
 package com.dreamstone.util;
 
-import java.util.logging.Level;
-
 import com.dreamstone.data.FrameOptionsManager;
 import com.dreamstone.file.FileManager;
-import com.dreamstone.file.SloverseLogger;
+import com.dreamstone.logging.Log;
+import com.dreamstone.logging.Priority;
 
 public final class InitHandler {
 
@@ -44,8 +43,7 @@ public final class InitHandler {
 	 * Initializes the logger and its necessary files.
 	 */
 	private static void initLogger() {
-		SloverseLogger.initLogger();
-		SloverseLogger.logMessage(Level.WARNING, "Logger successfully initialized!");
+		Log.logMessage(Priority.INFO, "Logger successfully initialized!");
 	}
 	
 	/**
