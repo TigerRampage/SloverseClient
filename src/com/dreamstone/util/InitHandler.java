@@ -1,8 +1,11 @@
 package com.dreamstone.util;
 
+import java.io.PrintStream;
+
 import com.dreamstone.file.FileManager;
 import com.dreamstone.logging.Log;
 import com.dreamstone.logging.Priority;
+import com.dreamstone.logging.SystemStream;
 import com.dreamstone.settings.FrameSettingsManager;
 
 public final class InitHandler {
@@ -43,6 +46,13 @@ public final class InitHandler {
 	 * Initializes the logger and its necessary files.
 	 */
 	private static void initLogger() {
+		Log.setOutStream(System.out);
+		SystemStream sysOut = new SystemStream(Priority.INFO);
+		System.setOut(new PrintStream(sysOut, true));
+		
+		Log.setErrStream(System.err);
+		SystemStream sysErr = new SystemStream(Priority.ERROR);
+		System.setErr(new PrintStream(sysErr, true));
 		Log.logMessage(Priority.INFO, "Logger successfully initialized!");
 	}
 	

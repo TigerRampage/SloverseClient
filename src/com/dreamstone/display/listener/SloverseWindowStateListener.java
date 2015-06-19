@@ -1,4 +1,4 @@
-package com.dreamstone.gui.launcher.listener;
+package com.dreamstone.display.listener;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;

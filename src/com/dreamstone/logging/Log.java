@@ -1,5 +1,6 @@
 package com.dreamstone.logging;
 
+import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,21 +15,24 @@ public class Log {
 	private static boolean logFileExists = false;
 	private static String logFileName = null;
 	
+	private static PrintStream outStream = null;
+	private static PrintStream errStream = null;
+	
 	public static void logMessage(Priority p, String message) {
 		logMessage(p, message, true);
 	}
 	
 	public static void logMessage(Priority p, String message, boolean logToFile) {
 		String m = createMessage(p, message);
-		if (p.getPriority() >= Priority.WARNING.getPriority()) {
-			System.err.print(m);
+		if (p.getPriority() >= Priority.WARNING.getPriority() && errStream != null) {
+			errStream.print(m);
 		}
-		else {
-			System.out.print(m);
+		else if (p.getPriority() < Priority.WARNING.getPriority() && outStream != null) {
+			outStream.print(m);
 		}
 		logRecord.append(m);
 		if (logToFile && p.getPriority() >= Priority.WARNING.getPriority()) {
-			printToLogFile(m);
+			printToLogFile();
 		}
 	}
 	
@@ -36,15 +40,20 @@ public class Log {
 		return logRecord.toString();
 	}
 	
+	public static void setOutStream(PrintStream ps) {
+		if (outStream == null) {
+			outStream = ps;
+		}
+	}
+	
+	public static void setErrStream(PrintStream ps) {
+		if (errStream == null) {
+			errStream = ps;
+		}
+	}
+	
 	private static String createMessage(Priority p, String message) {
 		StringBuilder m = new StringBuilder();
-		
-		DateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aa");
-		Calendar cal = Calendar.getInstance();
-		String header = dateFormat.format(cal.getTime());
-		
-		m.append(header);
-		m.append(System.lineSeparator());
 		
 		if (!message.contains(System.lineSeparator())) {
 			String line = p.toString() + ": " + message;
@@ -68,15 +77,14 @@ public class Log {
 		}
 		
 		m.append(System.lineSeparator());
-		m.append(System.lineSeparator());
 		return m.toString();
 	}
 	
-	private static void printToLogFile(String message) {
+	private static void printToLogFile() {
 		if (!logFileExists) {
 			createNewLogFile();
 		}
-		WritingHelper.writeFile(FileStructure.getLogsDirectory(), logFileName, message);
+		WritingHelper.writeFile(FileStructure.getLogsDirectory(), logFileName, getLogRecord());
 	}
 	
 	private static void createNewLogFile() {

@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import com.dreamstone.display.listener.SloverseWindowFocusedListener;
 import com.dreamstone.display.listener.SloverseWindowListener;
-import com.dreamstone.gui.launcher.listener.SloverseWindowStateListener;
+import com.dreamstone.display.listener.SloverseWindowStateListener;
 import com.dreamstone.settings.FrameSettingsManager;
 
 public class SloverseFrame extends JFrame {
