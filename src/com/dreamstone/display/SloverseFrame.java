@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 
 import com.dreamstone.display.listener.SloverseWindowFocusedListener;
 import com.dreamstone.display.listener.SloverseWindowListener;
+import com.dreamstone.gui.launcher.listener.SloverseWindowStateListener;
 import com.dreamstone.settings.FrameSettingsManager;
 
 public class SloverseFrame extends JFrame {
@@ -17,16 +18,14 @@ public class SloverseFrame extends JFrame {
 		this.setMaximumSize(FrameSettingsManager.getMaximumDimension());
 		this.setPreferredSize(FrameSettingsManager.getPreferredDimension());
 		
-		if (FrameSettingsManager.getFrameDimension().width >= this.getMaximumSize().width &&
-			FrameSettingsManager.getFrameDimension().height >= this.getMaximumSize().height) {
+		if (FrameSettingsManager.isMaximized()) {
 			this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 		}
-		else if (FrameSettingsManager.getFrameDimension().width < this.getMaximumSize().width &&
-				FrameSettingsManager.getFrameDimension().height < this.getMaximumSize().height) {
+		else {
 			this.setPreferredSize(FrameSettingsManager.getFrameDimension());
 		}
-		this.addFrameListeners();
 		
+		this.addFrameListeners();
 		this.pack();
 		this.setLocation(FrameSettingsManager.getFramePosition());
 		this.setVisible(true);
@@ -35,5 +34,6 @@ public class SloverseFrame extends JFrame {
 	private void addFrameListeners() {
 		this.addWindowListener(new SloverseWindowListener());
 		this.addWindowFocusListener(new SloverseWindowFocusedListener());
+		this.addWindowStateListener(new SloverseWindowStateListener());
 	}
 }
