@@ -22,15 +22,21 @@ public class SloverseLogger {
 	 * WARNING: File directory MUST be initialized before calling this method.
 	 */
 	public static void initLogger() {
-		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
+		DateFormat dateFormat = new SimpleDateFormat("hh-mm-ss MM-dd-yyyy");
 		Calendar cal = Calendar.getInstance();
 		String date = dateFormat.format(cal.getTime());
 		
 		String fileName = date + " log.txt";
-		FileManager.createNewFile(FileStructure.logsDir, fileName);
+		boolean success = FileManager.createNewFile(FileStructure.logsDir, fileName);
+		if (!success) {
+			sloverseLogger.log(Level.SEVERE, "Failed to create log file. It probably already has been created!");
+			return;
+		}
+		
 		File f = FileManager.retrieveFile(FileStructure.logsDir, fileName);
 		FileHandler handler = null;
 		try {
+			System.out.println(f.getAbsolutePath());
 			handler = new FileHandler(f.getAbsolutePath());
 			
 		} catch (SecurityException | IOException e) {

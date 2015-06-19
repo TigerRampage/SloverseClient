@@ -2,6 +2,7 @@ package com.dreamstone.util;
 
 import java.util.logging.Level;
 
+import com.dreamstone.data.FrameOptionsManager;
 import com.dreamstone.file.FileManager;
 import com.dreamstone.file.SloverseLogger;
 
@@ -20,6 +21,7 @@ public final class InitHandler {
 		initFilingSystem();
 		initLogger();
 		initResources();
+		initOptions();
 	}
 	
 	/**
@@ -43,7 +45,7 @@ public final class InitHandler {
 	 */
 	private static void initLogger() {
 		SloverseLogger.initLogger();
-		SloverseLogger.logMessage(Level.FINE, "Logger successfully initialized!");
+		SloverseLogger.logMessage(Level.WARNING, "Logger successfully initialized!");
 	}
 	
 	/**
@@ -51,6 +53,13 @@ public final class InitHandler {
 	 */
 	private static void initResources() {
 		
+	}
+	
+	/**
+	 * Loads all options saved from previous play periods.
+	 */
+	private static void initOptions() {
+		FrameOptionsManager.loadFrameOptions();
 	}
 	
 }

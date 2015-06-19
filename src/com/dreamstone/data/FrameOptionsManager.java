@@ -13,12 +13,12 @@ public class FrameOptionsManager extends OptionsManager {
 	private static Dimension maxDimension = DisplayInfo.getScreenSize();
 	private static Dimension preferredDimension = new Dimension(720, 480);
 	
-	private static SloverseFrame frameHandle = SloverseClient.getSloverse().getFrame();
 	private static Dimension frameDimension;
 	private static Point framePosition;
 	
 	
 	public static void saveFrameOptions() {
+		SloverseFrame frameHandle = SloverseClient.getSloverse().getFrame();
 		
 		frameDimension = frameHandle.getSize();
 		framePosition = frameHandle.getLocation();
@@ -37,6 +37,10 @@ public class FrameOptionsManager extends OptionsManager {
 			framePosition = new Point((int)((DisplayInfo.getScreenSize().getWidth() - frameDimension.getWidth()) / 2), (int)((DisplayInfo.getScreenSize().getHeight() - frameDimension.getHeight()) / 2));
 		}
 		*/
+		
+		//For now just sets dimension to preferredSize and screen to the center of screen.
+		frameDimension = preferredDimension;
+		framePosition = new Point((int)((DisplayInfo.getScreenSize().getWidth() - frameDimension.getWidth()) / 2), (int)((DisplayInfo.getScreenSize().getHeight() - frameDimension.getHeight()) / 2));
 	}
 	
 	public static Dimension getFrameDimension() {
