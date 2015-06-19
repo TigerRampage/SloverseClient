@@ -2,9 +2,9 @@ package com.dreamstone.display;
 
 import javax.swing.JFrame;
 
-import com.dreamstone.data.FrameOptionsManager;
 import com.dreamstone.display.listener.SloverseWindowFocusedListener;
 import com.dreamstone.display.listener.SloverseWindowListener;
+import com.dreamstone.settings.FrameSettingsManager;
 
 public class SloverseFrame extends JFrame {
 	
@@ -13,14 +13,14 @@ public class SloverseFrame extends JFrame {
 	public SloverseFrame(String title) {
 		super(title);
 		
-		this.setMinimumSize(FrameOptionsManager.getMinimumDimension());
-		this.setMaximumSize(FrameOptionsManager.getMaximumDimension());
-		this.setPreferredSize(FrameOptionsManager.getPreferredDimension());
-		this.setSize(FrameOptionsManager.getFrameDimension());
+		this.setMinimumSize(FrameSettingsManager.getMinimumDimension());
+		this.setMaximumSize(FrameSettingsManager.getMaximumDimension());
+		this.setPreferredSize(FrameSettingsManager.getPreferredDimension());
+		this.setSize(FrameSettingsManager.getFrameDimension());
 		this.addFrameListeners();
 		
 		this.pack();
-		this.setLocation(FrameOptionsManager.getFramePosition());
+		this.setLocation(FrameSettingsManager.getFramePosition());
 		this.setVisible(true);
 	}
 	

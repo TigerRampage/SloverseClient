@@ -1,4 +1,4 @@
-package com.dreamstone.data;
+package com.dreamstone.settings;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -7,7 +7,7 @@ import com.dreamstone.core.SloverseClient;
 import com.dreamstone.display.DisplayInfo;
 import com.dreamstone.display.SloverseFrame;
 
-public class FrameOptionsManager extends OptionsManager {
+public final class FrameSettingsManager {
 
 	private static Dimension minDimension = new Dimension(200, 200);
 	private static Dimension maxDimension = DisplayInfo.getScreenSize();
@@ -17,7 +17,7 @@ public class FrameOptionsManager extends OptionsManager {
 	private static Point framePosition;
 	
 	
-	public static void saveFrameOptions() {
+	public static void saveFrameSettings() {
 		SloverseFrame frameHandle = SloverseClient.getSloverse().getFrame();
 		
 		frameDimension = frameHandle.getSize();
@@ -25,7 +25,7 @@ public class FrameOptionsManager extends OptionsManager {
 		//Save options to file.
 	}
 	
-	public static void loadFrameOptions() {
+	public static void loadFrameSettings() {
 		
 		/*Check if settings file exists
 		if (exists) {

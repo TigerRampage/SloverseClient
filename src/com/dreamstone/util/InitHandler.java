@@ -2,9 +2,9 @@ package com.dreamstone.util;
 
 import java.util.logging.Level;
 
-import com.dreamstone.data.FrameOptionsManager;
 import com.dreamstone.file.FileManager;
 import com.dreamstone.file.SloverseLogger;
+import com.dreamstone.settings.FrameSettingsManager;
 
 public final class InitHandler {
 
@@ -21,7 +21,7 @@ public final class InitHandler {
 		initFilingSystem();
 		initLogger();
 		initResources();
-		initOptions();
+		initSettings();
 	}
 	
 	/**
@@ -56,10 +56,10 @@ public final class InitHandler {
 	}
 	
 	/**
-	 * Loads all options saved from previous play periods.
+	 * Loads all Settings saved from previous play periods.
 	 */
-	private static void initOptions() {
-		FrameOptionsManager.loadFrameOptions();
+	private static void initSettings() {
+		FrameSettingsManager.loadFrameSettings();
 	}
 	
 }

@@ -13,10 +13,9 @@ public class SloverseClient {
 	
 	public SloverseClient(String[] args) {
 		InitHandler.initSloverse(args);
-		
 		frame = new SloverseFrame("Sloverse");
-		
-		
+		gameLoop = new SloverseLoop();
+		gameLoop.start();
 	}
 	
 //	private void initConnection() {
