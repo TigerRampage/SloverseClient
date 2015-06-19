@@ -44,6 +44,7 @@ public final class FileManager {
 	
 	private static void initDirectories() {
 		(FileStructure.sloverseDir = FileStructure.appDir.down("Sloverse")).makeDirectories();
+		(FileStructure.optionsDir = FileStructure.sloverseDir.down("options")).makeDirectory();
 		(FileStructure.logsDir = FileStructure.sloverseDir.down("logs")).makeDirectory();
 	}
 	

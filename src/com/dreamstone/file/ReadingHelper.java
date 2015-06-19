@@ -94,6 +94,23 @@ public class ReadingHelper {
 		return bi;
 	}
 	
+	public static String getValueFromNode(String node, String contents) {
+		if (contents != null && !contents.isEmpty() && contents.contains(node)) {
+			String sub1 = contents.substring(contents.indexOf(node) + node.length() + 1);
+			if (sub1.contains(System.lineSeparator())) {
+				String sub2 = sub1.substring(0, sub1.indexOf(System.lineSeparator()));
+				sub1 = sub2;
+			}
+			System.out.println(sub1);
+			return sub1;
+		}
+		else {
+			Log.logMessage(Priority.WARNING, "Contents null when searching for value OR contents do not contain node!");
+			Log.logMessage(Priority.WARNING, "Node: \"" + node + "\"");
+			return null;
+		}
+	}
+	
 	public static BufferedImage getImageFromResourceFile(String filePath) {
 		InputStream stream = ReadingHelper.class.getClass().getResourceAsStream("/" + filePath);
 		BufferedImage image;

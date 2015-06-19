@@ -11,6 +11,7 @@ public final class DisplayInfo {
 	private static GraphicsDevice gd = ge.getDefaultScreenDevice();
 	private static DisplayMode display = gd.getDisplayMode();
 	private static final Dimension screenSize = new Dimension(display.getWidth(), display.getHeight());
+	private static final Dimension maxWindowBounds = ge.getMaximumWindowBounds().getSize();
 	
 	public static GraphicsEnvironment getGraphicsEnvironment() {
 		return ge;
@@ -26,5 +27,9 @@ public final class DisplayInfo {
 	
 	public static Dimension getScreenSize() {
 		return screenSize;
+	}
+	
+	public static Dimension getMaxWindowBounds() {
+		return maxWindowBounds;
 	}
 }

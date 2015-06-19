@@ -6,11 +6,15 @@ import java.awt.Point;
 import com.dreamstone.core.SloverseClient;
 import com.dreamstone.display.DisplayInfo;
 import com.dreamstone.display.SloverseFrame;
+import com.dreamstone.file.FileManager;
+import com.dreamstone.file.FileStructure;
+import com.dreamstone.file.ReadingHelper;
+import com.dreamstone.file.WritingHelper;
 
 public final class FrameSettingsManager {
 
 	private static Dimension minDimension = new Dimension(200, 200);
-	private static Dimension maxDimension = DisplayInfo.getScreenSize();
+	private static Dimension maxDimension = DisplayInfo.getMaxWindowBounds();
 	private static Dimension preferredDimension = new Dimension(720, 480);
 	
 	private static Dimension frameDimension;
@@ -22,23 +26,42 @@ public final class FrameSettingsManager {
 		
 		frameDimension = frameHandle.getSize();
 		framePosition = frameHandle.getLocation();
-		//Save options to file.
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("frameWidth=" + (int)frameDimension.getWidth() + System.lineSeparator());
+		sb.append("frameHeight=" + (int)frameDimension.getHeight() + System.lineSeparator());
+		sb.append("framePosX=" + (int)framePosition.getX() + System.lineSeparator());
+		sb.append("framePosY=" + (int)framePosition.getY());
+		String text = sb.toString();
+		
+		if (!FileStructure.getOptionsDirectory().contains("settings.txt")) {
+			FileManager.createNewFile(FileStructure.getOptionsDirectory(), "settings.txt");
+		}
+		WritingHelper.writeFile(FileStructure.getOptionsDirectory(), "settings.txt", text);
 	}
 	
 	public static void loadFrameSettings() {
 		
-		/*Check if settings file exists
-		if (exists) {
-			frameDimension = (get Dimension from file)
-			framePosition = (get Position from file)
+		if (FileStructure.getOptionsDirectory().contains("settings.txt")) {
+			String contents = ReadingHelper.readFile(FileStructure.getOptionsDirectory(), "settings.txt");
+			if (contents == null || contents.isEmpty()) {
+				setDefaultFrameSettings();
+			}
+			else {
+				int frameWidth = Integer.parseInt(ReadingHelper.getValueFromNode("frameWidth", contents));
+				int frameHeight = Integer.parseInt(ReadingHelper.getValueFromNode("frameHeight", contents));
+				int framePosX = Integer.parseInt(ReadingHelper.getValueFromNode("framePosX", contents));
+				int framePosY = Integer.parseInt(ReadingHelper.getValueFromNode("framePosY", contents));
+				frameDimension = new Dimension(frameWidth, frameHeight);
+				framePosition = new Point(framePosX, framePosY);
+			}
 		}
 		else {
-			frameDimension = new Dimension();
-			framePosition = new Point((int)((DisplayInfo.getScreenSize().getWidth() - frameDimension.getWidth()) / 2), (int)((DisplayInfo.getScreenSize().getHeight() - frameDimension.getHeight()) / 2));
+			setDefaultFrameSettings();
 		}
-		*/
-		
-		//For now just sets dimension to preferredSize and screen to the center of screen.
+	}
+	
+	private static void setDefaultFrameSettings() {
 		frameDimension = preferredDimension;
 		framePosition = new Point((int)((DisplayInfo.getScreenSize().getWidth() - frameDimension.getWidth()) / 2), (int)((DisplayInfo.getScreenSize().getHeight() - frameDimension.getHeight()) / 2));
 	}

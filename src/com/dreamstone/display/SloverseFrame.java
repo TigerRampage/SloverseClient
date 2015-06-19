@@ -16,7 +16,15 @@ public class SloverseFrame extends JFrame {
 		this.setMinimumSize(FrameSettingsManager.getMinimumDimension());
 		this.setMaximumSize(FrameSettingsManager.getMaximumDimension());
 		this.setPreferredSize(FrameSettingsManager.getPreferredDimension());
-		this.setSize(FrameSettingsManager.getFrameDimension());
+		
+		if (FrameSettingsManager.getFrameDimension().width >= this.getMaximumSize().width &&
+			FrameSettingsManager.getFrameDimension().height >= this.getMaximumSize().height) {
+			this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		}
+		else if (FrameSettingsManager.getFrameDimension().width < this.getMaximumSize().width &&
+				FrameSettingsManager.getFrameDimension().height < this.getMaximumSize().height) {
+			this.setPreferredSize(FrameSettingsManager.getFrameDimension());
+		}
 		this.addFrameListeners();
 		
 		this.pack();

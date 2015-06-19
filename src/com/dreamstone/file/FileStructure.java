@@ -13,6 +13,7 @@ public class FileStructure {
 	protected static Directory sloverseDir;
 	
 	//Sloverse sub folders
+	protected static Directory optionsDir;
 	protected static Directory logsDir;
 	
 	public static Directory getAppDirectory() {
@@ -21,6 +22,10 @@ public class FileStructure {
 	
 	public static Directory getSloverseDirectory() {
 		return sloverseDir;
+	}
+	
+	public static Directory getOptionsDirectory() {
+		return optionsDir;
 	}
 	
 	public static Directory getLogsDirectory() {
