@@ -14,6 +14,6 @@ public class SloverseWindowListener extends WindowAdapter {
 	@Override
 	public void windowClosing(WindowEvent we) {
 		System.out.println("Closing Sloverse...");
-		
+		System.exit(0);
 	}
 }

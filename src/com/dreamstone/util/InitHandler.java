@@ -1,5 +1,7 @@
 package com.dreamstone.util;
 
+import com.dreamstone.data.FrameOptionsManager;
+
 public final class InitHandler {
 
 	/**
@@ -14,6 +16,7 @@ public final class InitHandler {
 		
 		initFilingSystem();
 		initResources();
+		initOptions();
 	}
 	
 	/**
@@ -36,6 +39,13 @@ public final class InitHandler {
 	 */
 	private static void initResources() {
 		
+	}
+	
+	/**
+	 * Loads all options saved from previous play periods.
+	 */
+	private static void initOptions() {
+		FrameOptionsManager.loadFrameOptions();
 	}
 	
 }
