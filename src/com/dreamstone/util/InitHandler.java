@@ -3,6 +3,7 @@ package com.dreamstone.util;
 import java.io.PrintStream;
 
 import com.dreamstone.file.FileManager;
+import com.dreamstone.file.ResourceLoader;
 import com.dreamstone.logging.Log;
 import com.dreamstone.logging.Priority;
 import com.dreamstone.logging.SystemStream;
@@ -60,7 +61,7 @@ public final class InitHandler {
 	 * Loads in all images relating to Sloverse.
 	 */
 	private static void initResources() {
-		
+		ResourceLoader.loadResources();
 	}
 	
 	/**
